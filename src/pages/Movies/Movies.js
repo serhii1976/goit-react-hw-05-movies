@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { GetSearchMovies } from 'components/FetchAPI';
+import { getSearchMovies } from 'components/FetchAPI';
 import { Section, Form, Li } from 'pages/Movies/Movies.styled';
 
 const Movies = () => {
@@ -8,7 +8,6 @@ const Movies = () => {
   const [moviesList, setMoviesList] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
-  const [valueQuery, setValueQuery] = useState(query);
 
   const updateQueryString = query => {
     const nextParams = query !== '' ? { query } : {};
@@ -29,7 +28,7 @@ const Movies = () => {
         if (!query) {
           return;
         }
-        const response = await GetSearchMovies(query);
+        const response = await getSearchMovies(query);
         setMoviesList(response.data.results);
       } catch (error) {
         console.log(error);
@@ -42,13 +41,7 @@ const Movies = () => {
     <main>
       <Section>
         <Form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="query"
-            value={valueQuery}
-            onChange={e => setValueQuery(e.target.value)}
-            placeholder="Search a movie"
-          ></input>
+          <input type="text" name="query"></input>
           <button type="submit">Search</button>
         </Form>
         <ul>

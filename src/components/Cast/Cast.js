@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { GetCast } from 'components/FetchAPI';
+import { getCast } from 'components/FetchAPI';
 import { List } from 'components/Cast/Cast.styled';
 
 const Cast = () => {
@@ -10,7 +10,7 @@ const Cast = () => {
   useEffect(() => {
     async function fetchCast() {
       try {
-        const response = await GetCast(movieId);
+        const response = await getCast(movieId);
         setCast(response);
       } catch (error) {
         console.log(error);
@@ -21,16 +21,16 @@ const Cast = () => {
 
   return (
     <List>
-      {cast.map(actor => (
-        <li key={actor.id}>
-          {actor.profile_path && (
+      {cast.map(({ id, profile_path, name, character }) => (
+        <li key={id}>
+          {profile_path && (
             <img
-              src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
-              alt={actor.name}
+              src={`https://image.tmdb.org/t/p/w200${profile_path}`}
+              alt={name}
             />
           )}
-          <p>{actor.name}</p>
-          <p>Character: {actor.character}</p>
+          <p>{name}</p>
+          <p>Character: {character}</p>
         </li>
       ))}
     </List>

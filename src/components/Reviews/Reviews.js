@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { GetReviews } from '../FetchAPI';
+import { getReviews } from '../FetchAPI';
 import { Title } from 'components/Reviews/Reviews.styled';
 
 export default function Reviews() {
@@ -10,7 +10,7 @@ export default function Reviews() {
   useEffect(() => {
     async function fetchReviews() {
       try {
-        const response = await GetReviews(movieId);
+        const response = await getReviews(movieId);
         setReviews(response);
       } catch (error) {
         console.log(error);

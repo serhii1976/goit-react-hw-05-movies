@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
-import { GetMovieDitails } from 'components/FetchAPI';
+import {
+  NavLink,
+  Link,
+  Outlet,
+  useParams,
+  useLocation,
+} from 'react-router-dom';
+import { getMovieDitails } from 'components/FetchAPI';
 import { Suspense } from 'react';
 import {
   Button,
@@ -24,7 +30,7 @@ const MovieDetails = () => {
   useEffect(() => {
     async function fetchMovieDetails() {
       try {
-        const response = await GetMovieDitails(movieId);
+        const response = await getMovieDitails(movieId);
         setGenres(response.data.genres);
         setMovie(response.data);
       } catch (error) {
@@ -72,14 +78,14 @@ const MovieDetails = () => {
         <h3>Additional information</h3>
         <ul>
           <Item>
-            <Link to="cast" state={{ from: backLinkHref }}>
+            <NavLink to="cast" state={{ from: backLinkHref }}>
               Cast
-            </Link>
+            </NavLink>
           </Item>
           <Item>
-            <Link to="reviews" state={{ from: backLinkHref }}>
+            <NavLink to="reviews" state={{ from: backLinkHref }}>
               Reviews
-            </Link>
+            </NavLink>
           </Item>
         </ul>
       </Div>

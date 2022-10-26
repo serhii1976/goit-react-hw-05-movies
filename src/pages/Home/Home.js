@@ -1,4 +1,4 @@
-import { GetTrendingMovies } from 'components/FetchAPI';
+import { getTrendingMovies } from 'components/FetchAPI';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Title, Section, Li } from 'pages/Home/Home.styled';
@@ -9,7 +9,7 @@ export const Home = () => {
   useEffect(() => {
     async function fethcTrendingFilms() {
       try {
-        const response = await GetTrendingMovies();
+        const response = await getTrendingMovies();
         setTrendingList(response);
       } catch (error) {
         console.log(error);
